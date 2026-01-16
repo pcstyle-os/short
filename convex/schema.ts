@@ -15,8 +15,9 @@ export default defineSchema({
         createdAt: v.number(),
         // Optional expiration timestamp
         expiresAt: v.optional(v.number()),
-        // Creator identifier (could be IP or user ID)
+        // Creator identifier
         creatorId: v.optional(v.string()),
+        userId: v.optional(v.string()), // WorkOS User ID
     })
         .index("by_shortCode", ["shortCode"])
         .index("by_createdAt", ["createdAt"]),
