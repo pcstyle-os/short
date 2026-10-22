@@ -9,6 +9,7 @@ export const LinkShortener = () => {
   const [url, setUrl] = useState("");
   const [customAlias, setCustomAlias] = useState("");
   const [showCustom, setShowCustom] = useState(false);
+  const [isPublic, setIsPublic] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [copiedUrl, setCopiedUrl] = useState<string | null>(null);
   const [createdLink, setCreatedLink] = useState<{ shortCode: string; shortUrl: string } | null>(null);
@@ -25,11 +26,12 @@ export const LinkShortener = () => {
     if (!/^https?:\/\//i.test(processedUrl)) processedUrl = "https://" + processedUrl;
     setIsCreating(true);
     try {
-      const result = await createLink({ url: processedUrl, customAlias: showCustom && customAlias.trim() ? customAlias.trim() : undefined });
+      const result = await createLink({ url: processedUrl, customAlias: showCustom && customAlias.trim() ? customAlias.trim() : undefined, isPublic });
       setCreatedLink(result);
       setUrl("");
       setCustomAlias("");
       setShowCustom(false);
+      setIsPublic(false);
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Failed to create short link");
     } finally { setIsCreating(false); }
@@ -53,6 +55,10 @@ export const LinkShortener = () => {
           <input id="long-url" className="field" type="text" value={url} onChange={(e) => setUrl(e.target.value)} placeholder="https://example.com/long-link" />
           <button type="submit" className="btn" disabled={isCreating}>{isCreating ? "shortening…" : "shorten →"}</button>
         </div>
+        <label className="check">
+          <input type="checkbox" checked={isPublic} onChange={(e) => setIsPublic(e.target.checked)} />
+          list in public recent links
+        </label>
         <button type="button" className="toggle" onClick={() => setShowCustom(!showCustom)} aria-expanded={showCustom}>
           {showCustom ? "− hide custom alias" : "+ custom alias"}
         </button>
@@ -62,9 +68,9 @@ export const LinkShortener = () => {
             <div>
               <div className="field alias">
                 <span>s.pcstyle.dev/</span>
-                <input id="custom-alias" type="text" value={customAlias} onChange={(e) => setCustomAlias(e.target.value)} placeholder="your-alias" pattern="^[a-zA-Z0-9_-]{3,20}$" />
+                <input id="custom-alias" type="text" value={customAlias} onChange={(e) => setCustomAlias(e.target.value)} placeholder="your-alias" pattern="^[a-zA-Z0-9_-]{1,64}$" maxLength={64} />
               </div>
-              <p className="hint">3-20 characters: letters, numbers, dashes and underscores</p>
+              <p className="hint">1-64 characters: letters, numbers, dashes and underscores</p>
             </div>
           </>
         )}

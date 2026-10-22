@@ -26,6 +26,8 @@ export const createLink = mutation({
     args: {
         url: v.string(),
         customAlias: v.optional(v.string()),
+        // Private unless the creator opts in to the public list
+        isPublic: v.optional(v.boolean()),
     },
     handler: async (ctx, args) => {
         // Validate URL
@@ -37,9 +39,9 @@ export const createLink = mutation({
         let shortCode: string;
 
         if (args.customAlias) {
-            // Validate custom alias (alphanumeric, 3-20 chars)
-            if (!/^[a-zA-Z0-9_-]{3,20}$/.test(args.customAlias)) {
-                throw new Error("Custom alias must be 3-20 alphanumeric characters (including _ and -)");
+            // Validate custom alias (letters, numbers, _ and -, 1-64 chars)
+            if (!/^[a-zA-Z0-9_-]{1,64}$/.test(args.customAlias)) {
+                throw new Error("Custom alias must be 1-64 characters: letters, numbers, _ and -");
             }
 
             // Check if already exists
@@ -77,6 +79,7 @@ export const createLink = mutation({
             url: args.url,
             shortCode,
             customAlias: args.customAlias,
+            isPublic: args.isPublic ?? false,
             clicks: 0,
             createdAt: Date.now(),
         });
@@ -123,13 +126,13 @@ export const incrementClicks = mutation({
     },
 });
 
-// Get recent links (for display)
+// Get recent public links (for display). Private links never appear here.
 export const getRecentLinks = query({
     args: {},
     handler: async (ctx) => {
         const links = await ctx.db
             .query("links")
-            .withIndex("by_createdAt")
+            .withIndex("by_public_createdAt", (q) => q.eq("isPublic", true))
             .order("desc")
             .take(10);
 
