@@ -286,3 +286,9 @@ svg { fill: currentColor; shape-rendering: crispEdges; }
   .short-form .row .btn { line-height: 30px; }
   .short-form .row .field { line-height: 30px; }
 }
+.short-form .check { grid-column: 2; display: flex; align-items: center; gap: 6px; color: var(--dim); cursor: pointer; }
+.short-form .check::before { content: none; }
+.short-form .check input { appearance: none; width: 11px; height: 11px; margin: 0; border: 1px solid var(--line); background: var(--bg); cursor: pointer; }
+.short-form .check input:checked { background: var(--accent-2); border-color: var(--accent-2); box-shadow: inset 0 0 0 2px var(--bg); }
+.short-form .check:hover input { border-color: var(--accent-2); }
+@media (max-width: 559px) { .short-form .check { grid-column: 1; } }

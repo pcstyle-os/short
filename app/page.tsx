@@ -7,7 +7,8 @@ export default function Home() {
       <p className="lede" data-dither-text>long link in. short link out.</p>
       <dl className="facts">
         <dt>does</dt><dd>turns unwieldy urls into clean s.pcstyle.dev links</dd>
-        <dt>with</dt><dd>optional custom aliases and click counts</dd>
+        <dt>with</dt><dd>optional custom aliases (1-64 chars) and click counts</dd>
+        <dt>privacy</dt><dd>links are private unless you tick &quot;list in public recent links&quot;</dd>
         <dt>also</dt><dd>every file on <a href="https://upload.pcstyle.dev">upload.pcstyle.dev</a> gets one</dd>
       </dl>
 

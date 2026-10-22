@@ -17,7 +17,9 @@ export default defineSchema({
         expiresAt: v.optional(v.number()),
         // Creator identifier (could be IP or user ID)
         creatorId: v.optional(v.string()),
+        // Listed in the public recent-links list; unset means private
+        isPublic: v.optional(v.boolean()),
     })
         .index("by_shortCode", ["shortCode"])
-        .index("by_createdAt", ["createdAt"]),
+        .index("by_public_createdAt", ["isPublic", "createdAt"]),
 });
