@@ -13,7 +13,7 @@ export default function Home() {
 
       <h2 className="sect">shorten a link</h2>
       <LinkShortener />
-      <p className="foot"><a href="https://pcstyle.dev">pcstyle.dev</a> <a href="https://github.com/pcstyle-os/short">github</a></p>
+      <p className="foot"><span>© 2026 Adam Krupa</span> <a href="https://pcstyle.dev">pcstyle.dev</a> <a href="https://github.com/pcstyle-os/short">github</a></p>
     </Desk>
   );
 }

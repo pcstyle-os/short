@@ -91,7 +91,7 @@ export const LinkShortener = () => {
               return (
                 <li key={link._id}>
                   <span className="main">
-                    <a className="name" href={shortUrl}>s.pcstyle.dev/{link.shortCode}</a>
+                    <span className="name">s.pcstyle.dev/{link.shortCode}</span>
                     <span className="sub">{link.url}</span>
                   </span>
                   <span className="meta">{link.clicks} clk</span>
