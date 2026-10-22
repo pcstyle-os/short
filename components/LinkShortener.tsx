@@ -68,7 +68,7 @@ export const LinkShortener = () => {
             <div>
               <div className="field alias">
                 <span>s.pcstyle.dev/</span>
-                <input id="custom-alias" type="text" value={customAlias} onChange={(e) => setCustomAlias(e.target.value)} placeholder="your-alias" pattern="^[a-zA-Z0-9_-]{1,64}$" maxLength={64} />
+                <input id="custom-alias" type="text" value={customAlias} onChange={(e) => setCustomAlias(e.target.value)} placeholder="your-alias" pattern="[a-zA-Z0-9_\-]{1,64}" maxLength={64} />
               </div>
               <p className="hint">1-64 characters: letters, numbers, dashes and underscores</p>
             </div>

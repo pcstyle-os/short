@@ -21,6 +21,5 @@ export default defineSchema({
         isPublic: v.optional(v.boolean()),
     })
         .index("by_shortCode", ["shortCode"])
-        .index("by_createdAt", ["createdAt"])
         .index("by_public_createdAt", ["isPublic", "createdAt"]),
 });
